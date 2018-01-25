@@ -15,6 +15,7 @@ public class Client {
         String sub = "-";
         Context c;
         Strategy s;
+        // 策略模式中，客户端需要知道使用的策略是什么。与迪米特法则相违背。 通常与其他模式相结合使用
         if (add.equals(cha)) {
             s = new AddStrategy();
             c = new Context(s);
