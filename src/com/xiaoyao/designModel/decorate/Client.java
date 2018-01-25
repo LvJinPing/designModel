@@ -8,7 +8,7 @@ import com.xiaoyao.designModel.decorate.decorate.SortDecorate;
  * @version 1.0
  * @since 2018-01-25
  */
-public class Father {
+public class Client {
     public static void main(String[] args) {
         SchooleReport sr;
         sr = new FouthGradeSchoolReport();
