@@ -10,7 +10,7 @@ import com.xiaoyao.designModel.decorate.decorate.SortDecorate;
  */
 public class Client {
     public static void main(String[] args) {
-        SchooleReport sr;
+        AbstractSchooleReport sr;
         sr = new FouthGradeSchoolReport();
         sr = new HighScoreDecorate(sr);
         sr = new SortDecorate(sr);

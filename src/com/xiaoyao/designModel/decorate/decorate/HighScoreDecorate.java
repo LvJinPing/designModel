@@ -1,15 +1,15 @@
 package com.xiaoyao.designModel.decorate.decorate;
 
-import com.xiaoyao.designModel.decorate.SchooleReport;
+import com.xiaoyao.designModel.decorate.AbstractSchooleReport;
 
 /**
  * @author xiaoyao
  * @version 1.0
  * @since 2018-01-25
  */
-public class HighScoreDecorate extends Decorate {
+public class HighScoreDecorate extends AbstractDecorate {
 
-    public HighScoreDecorate(SchooleReport sr){
+    public HighScoreDecorate(AbstractSchooleReport sr){
         super(sr);
     }
 

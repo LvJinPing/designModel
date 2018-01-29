@@ -5,7 +5,7 @@ package com.xiaoyao.designModel.decorate;
  * @version 1.0
  * @since 2018-01-25
  */
-public class FouthGradeSchoolReport extends SchooleReport {
+public class FouthGradeSchoolReport extends AbstractSchooleReport {
     @Override
     public void reporte() {
         System.out.println("father 我的成绩是 : 0 分");

@@ -16,6 +16,7 @@ public class Client {
         Context c;
         Strategy s;
         // 策略模式中，客户端需要知道使用的策略是什么。与迪米特法则相违背。 通常与其他模式相结合使用
+        // 这里的 if /else 可以交给 Context 进行创建
         if (add.equals(cha)) {
             s = new AddStrategy();
             c = new Context(s);

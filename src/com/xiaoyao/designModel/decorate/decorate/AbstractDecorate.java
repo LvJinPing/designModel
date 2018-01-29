@@ -1,6 +1,6 @@
 package com.xiaoyao.designModel.decorate.decorate;
 
-import com.xiaoyao.designModel.decorate.SchooleReport;
+import com.xiaoyao.designModel.decorate.AbstractSchooleReport;
 
 /**
  * @author xiaoyao
@@ -9,14 +9,14 @@ import com.xiaoyao.designModel.decorate.SchooleReport;
  * 装饰模式
  * 装饰抽象类。 提供基本方法
  */
-public abstract class Decorate extends SchooleReport {
-    private SchooleReport sr;
+public abstract class AbstractDecorate extends AbstractSchooleReport {
+    private AbstractSchooleReport sr;
 
     /**
      * 只提供有参构造器。强制要求子类调用
      * @param sr
      */
-    public Decorate(SchooleReport sr){
+    public AbstractDecorate(AbstractSchooleReport sr){
         this.sr = sr;
     }
     @Override
