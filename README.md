@@ -8,3 +8,9 @@
 * visitor 访问者模式
 * state 状态模式
 * flyWeight 享元模式
+* handler 责任链模式
+* command 命令模式
+* mediator 中介者模式
+* proxy 动态代理
+* builder 建造者模式
+* model 模版方法模式
