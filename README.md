@@ -1,4 +1,4 @@
-### 设计模式代码示例
+### 设计模式代码示例  design model
 * adapter 适配器模式
 * component 组合模式
 * decorate 装饰器模式
@@ -14,3 +14,4 @@
 * proxy 动态代理
 * builder 建造者模式
 * model 模版方法模式
+### 多线程使用  thread
