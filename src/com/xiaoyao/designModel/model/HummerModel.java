@@ -26,9 +26,9 @@ public abstract class HummerModel {
     /**
      * 汽车运行
      * 具体方法由子类提供实现
-     * 运行顺序由模版决定。不能更改
+     * 运行顺序由模版决定。以 final 限定，不能更改
      */
-    public void run(){
+    public final void run(){
         this.alarm();
         this.start();
         this.stop();

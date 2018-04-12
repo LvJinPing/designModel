@@ -15,7 +15,7 @@ public abstract class AbstractCarModel {
     protected abstract void start();
     protected abstract  void stop();
     protected abstract void alarm();
-    public void run(){
+    public final void run(){
         for (String s : this.sequence) {
             if (s.equals("start")){
                 this.start();
