@@ -14,16 +14,19 @@ public class Sort {
         Sort sort = new Sort();
         List<Integer> nums = new ArrayList<>();
         nums.add(3);nums.add(2);nums.add(5);nums.add(3);nums.add(99);nums.add(100);nums.add(88);
-        // 冒泡
-//        System.out.println(sort.bubbling(nums));
-        //选择
-//        System.out.println(sort.choose(nums));
+        /*// 冒泡
+        System.out.println(sort.bubbling(nums));*/
+        /*//选择
+        System.out.println(sort.choose(nums));*/
         // 归并排序
 
+        // 快速排序，采用分治法
+        sort.fastSort2(nums,0,nums.size()-1);
+        System.out.println(nums);
         //插入排序  适合链表，链表增删块
         //算法题1
 //        System.out.println(sort.reSortStr("Keep calm and code on"));
-        //leetCode 1452. 收藏清单
+      /*  //leetCode 1452. 收藏清单
         List<List<String>> datas = new ArrayList<>();
         List<String> d1 = new ArrayList<>();d1.add("leetcode");d1.add("google");d1.add("facebook");
         List<String> d2 = new ArrayList<>();d2.add("microsoft");d2.add("google");
@@ -32,6 +35,87 @@ public class Sort {
         List<String> d5 = new ArrayList<>();d5.add("amazon");
         datas.add(d1);datas.add(d2);datas.add(d3);datas.add(d4);datas.add(d5);
         System.out.println(sort.peopleIndexes(datas));
+*/
+    }
+
+    /**
+     * 快速排序，采用分治思想。
+     * 1. 取一个标志位（从第一个开始取），比标志位大的放右边，比标志位小的放左边（正排序）
+     * 2. 递归比较大小
+     * 3. 归并结果
+     * @param datas 待排序数组/集合
+     * @param begin 循环开始位置
+     * @param lastIndex 循环结束位置
+     * @return
+     */
+    public void fastSort(List<Integer> datas,int begin,int lastIndex){
+        // 递归结束点判断，以及避免下标越界
+        if (lastIndex < begin){
+            return;
+        }
+        // 选取标量
+        int scalar = datas.get(begin);
+        // 循环起点/终点赋值 因为后续会用到入参，不能变更
+        int lower = begin;
+        int highter = lastIndex;
+        //从两头开始取值（highter--，lower ++）分别与标量进行比较。取第一个满足条件的值，设置在标量左右
+        while (lower<highter){
+            // a.右侧小于标量时结束循环，否则继续寻找。当前highter等待交换位置到左侧
+            while (lower < highter &&   datas.get(highter)> scalar){
+                highter --;
+            }
+            // b.左侧大于标量时结束循环，当前lower等待交换位置到右侧 (若没有将== 包含进判断里面会造成死循环，判断必须闭环)
+            while (lower < highter &&  datas.get(lower)<=scalar ){
+                lower++;
+            }
+            // 循环a/b 结束交换第一次找到的值的位置。
+            if (lower < highter){
+                int temp = datas.get(lower);
+                datas.set(lower,datas.get(highter));
+                datas.set(highter,temp);
+            }
+        }
+        //将标量替换左右相遇值的位置
+        datas.set(begin,datas.get(lower));
+        datas.set(lower,scalar);
+        //左边拆分
+        fastSort(datas,begin,lower-1);
+        //右边拆分
+        fastSort(datas,lower+1,lastIndex);
+    }
+    // 从大到小 到排序
+    public void fastSort2(List<Integer> datas,int begin,int lastIndex){
+        //1. 递归循环结束点
+        if (begin >= lastIndex){
+            return;
+        }
+        int leftB = begin;
+        int rightB = lastIndex;
+        //2. 取第一位数位基准值
+        Integer baseValue = datas.get(begin);
+        //3. 将第一次找到的比基准值大/小的数据交换位置
+        while (leftB < rightB){
+            // 右往左
+            while (leftB < rightB && datas.get(rightB) < baseValue ){
+                rightB --;
+            }
+            // 左往右
+            while (leftB < rightB && datas.get(leftB) >= baseValue){
+                leftB ++;
+            }
+            // 如果有就结果交换两个
+            if (leftB < rightB){
+                Integer temp = datas.get(leftB);
+                datas.set(leftB,datas.get(rightB));
+                datas.set(rightB,temp);
+            }
+        }
+        //4. 将基准值替换到第一次leftB与rightB相遇的位置，取左取右都行
+        datas.set(begin,datas.get(leftB));
+        datas.set(leftB,baseValue);
+        //5. 取第4步与基准交换的索引值，拆分进入下一次排序。 基准值不在排序
+        fastSort2(datas,begin,leftB-1);
+        fastSort2(datas,leftB+1,lastIndex);
 
     }
 
