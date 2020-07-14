@@ -1,7 +1,10 @@
 package com.xiaoyao.algorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * @author ljp
@@ -12,8 +15,8 @@ import java.util.List;
 public class Sort {
     public static void main(String[] args) {
         Sort sort = new Sort();
-        List<Integer> nums = new ArrayList<>();
-        nums.add(3);nums.add(2);nums.add(5);nums.add(3);nums.add(99);nums.add(100);nums.add(88);
+//        List<Integer> nums = new ArrayList<>();
+//        nums.add(3);nums.add(2);nums.add(5);nums.add(3);nums.add(99);nums.add(100);nums.add(88);
         /*// 冒泡
         System.out.println(sort.bubbling(nums));*/
         /*//选择
@@ -21,8 +24,12 @@ public class Sort {
         // 归并排序
 
         // 快速排序，采用分治法
-        sort.fastSort2(nums,0,nums.size()-1);
-        System.out.println(nums);
+//        sort.fastSort2(nums,0,nums.size()-1);
+        // 堆排序
+        int[] a = new int[]{7,6,5,4,3,2,1};
+        sort.heapSort(a);
+        System.out.println(Arrays.asList(a));
+//        System.out.println(nums);
         //插入排序  适合链表，链表增删块
         //算法题1
 //        System.out.println(sort.reSortStr("Keep calm and code on"));
@@ -36,8 +43,67 @@ public class Sort {
         datas.add(d1);datas.add(d2);datas.add(d3);datas.add(d4);datas.add(d5);
         System.out.println(sort.peopleIndexes(datas));
 */
+
     }
 
+    /**
+     * 堆排序实现
+     * @param datas
+     * 堆排序的基本思想是：将待排序序列构造成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点。将其与末尾元素进行交换，此时末尾就为最大值。
+     * 然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。如此反复执行，便能得到一个有序序列了
+     */
+    public void heapSort(int[] datas){
+        // 因为末尾节点的父节点 = ((length-1)-1)/2 推出最后的父节点为  length/2-1
+        for(int i=0 ; i<=datas.length/2-1;i++){
+            buildHeap(datas,i,datas.length);
+        }
+        // 需要重下往上找 作 shiftUp 操作。i=0 i++ 的操作堆顶不是最大值
+        for(int i=datas.length/2-1;i>=0;i--){
+            buildHeap(datas,i,datas.length);
+        }
+        // 交换排序
+        for(int i =datas.length-1;i>=0;i--){
+            int temp = datas[i];
+            datas[i] = datas[0];
+            datas[0]=temp;
+            buildHeap(datas,0,i);
+        }
+
+        // jdk 版堆 利用优先队列实现, n1-n2这是一个小根堆。。。升序排列的 (n2-n1是一个大根堆)
+     /*   PriorityQueue<Integer> heap = new PriorityQueue<>((n1,n2)->n1-n2);
+        for (int data : datas) {
+            heap.add(data);
+        }
+        for (int i = 0; i < datas.length; i++) {
+            datas[i]= heap.poll();
+        }*/
+    }
+
+    /**
+     * 构建堆，根据堆排序思想，升序构建大顶堆，降序构建小顶堆。
+     * 构建思路： 从深度k-1 处，一层一层往上找。先把每个深度遍历完成。
+     * @param datas 构建堆的数组
+     * @param i 从第几个索引开始构建。当前父节点
+     * @param length  需要构建的长度  （大根放到末尾后不参与后续构建）
+     */
+    private void  buildHeap(int[] datas,int i,int length){
+        int temp = datas[i];
+        for(int j = i*2+1; j< length;j=j*2+1){
+            // j 取左右节点中大的一个
+            if (j + 1 < length && datas[j] < datas[j+1]) {
+                j++;
+            }
+            if(datas[j]> temp){
+                // 保留交换后 j 的索引。 后续直接将temp 赋值给i；
+                datas[i]=datas[j];
+                i = j;
+            }else {
+                // 因为从底层深度往上，所以上层深度选择排序时，遇到小的肯定时排过序的，直接返回即可
+                break;
+            }
+        }
+        datas[i]=temp;
+    }
     /**
      * 快速排序，采用分治思想。
      * 1. 取一个标志位（从第一个开始取），比标志位大的放右边，比标志位小的放左边（正排序）
