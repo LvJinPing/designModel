@@ -26,9 +26,12 @@ public class Sort {
         // 快速排序，采用分治法
 //        sort.fastSort2(nums,0,nums.size()-1);
         // 堆排序
-        int[] a = new int[]{7,6,5,4,3,2,1};
-        sort.heapSort(a);
-        System.out.println(Arrays.asList(a));
+        int[] a = new int[]{1,2,3,4,5,6,7};
+//        sort.heapSort(a);
+//        System.out.println(Arrays.asList(a));
+        //二分查找
+        System.out.println(sort.binarySearchRecursive(a,-1,0,6));
+
 //        System.out.println(nums);
         //插入排序  适合链表，链表增删块
         //算法题1
@@ -45,6 +48,55 @@ public class Sort {
 */
 
     }
+
+    /**
+     * 二分查找-递归
+     * @param datas
+     * @param key
+     * @return
+     */
+    public int binarySearchRecursive(int[] datas,int key,int low ,int hight){
+        if(low > hight){
+            return  -1;
+        }
+        int mid = (low+hight)/2;
+        if(datas[mid] < key){
+            return binarySearchRecursive(datas,key,mid+1,hight);
+        }else if(datas[mid]> key){
+            return binarySearchRecursive(datas,key,low,mid-1);
+        }else {
+            return  mid;
+        }
+    }
+    /**
+     * 二分查找 迭代法
+     * @param datas
+     * @param key
+     * @return
+     */
+    public int binarySearchFor(int[] datas,int key){
+        int low = 0;
+        int hight = datas.length -1;
+        if(datas[0] >key || datas[hight]<key ||hight<low){
+            return -1;
+        }
+        while (low <= hight){
+            int mid = (hight+low);
+            // 往后
+            if(datas[mid]<key){
+                low = mid+1;
+            }
+            // 往前
+            else if (datas[mid]>key){
+                hight = mid-1;
+            }else {
+                return mid;
+            }
+        }
+        return  -1;
+    }
+
+
 
     /**
      * 堆排序实现
@@ -80,6 +132,9 @@ public class Sort {
     }
 
     /**
+     * 针对于 i 节点
+     * i 的父节点为(i-1)/2
+     * i 的两个子节点 (2i+1 和 2i+2)；
      * 构建堆，根据堆排序思想，升序构建大顶堆，降序构建小顶堆。
      * 构建思路： 从深度k-1 处，一层一层往上找。先把每个深度遍历完成。
      * @param datas 构建堆的数组
