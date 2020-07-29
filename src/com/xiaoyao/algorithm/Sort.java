@@ -30,7 +30,7 @@ public class Sort {
 //        sort.heapSort(a);
 //        System.out.println(Arrays.asList(a));
         //二分查找
-        System.out.println(sort.binarySearchRecursive(a,-1,0,6));
+        System.out.println(sort.binarySearchFor(a,4));
 
 //        System.out.println(nums);
         //插入排序  适合链表，链表增删块
