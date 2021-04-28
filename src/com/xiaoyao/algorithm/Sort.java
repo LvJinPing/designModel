@@ -1,10 +1,7 @@
 package com.xiaoyao.algorithm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * @author ljp
@@ -24,9 +21,11 @@ public class Sort {
         // 归并排序
 
         // 快速排序，采用分治法
-        sort.fastSort(nums,0,nums.size()-1);
+//        sort.fastSort(nums,0,nums.size()-1);
         // 堆排序
-        int[] a = new int[]{1,2,3,4,5,6,7};
+        int[] a = new int[]{1,3,2,4,5,6,7};
+        sort.sort(a );
+        System.out.println(a);
 //        sort.heapSort(a);
 //        System.out.println(Arrays.asList(a));
         //二分查找
@@ -48,6 +47,8 @@ public class Sort {
 */
 
     }
+
+
 
     /**
      * 二分查找-递归
@@ -158,6 +159,18 @@ public class Sort {
             }
         }
         datas[i]=temp;
+    }
+
+    public void sort(int[] datas){
+        for (int i = 0; i < datas.length; i++) {
+            for (int j = i+1; j < datas.length; j++) {
+                if(datas[i] > datas[j]){
+                    int temp = datas[j];
+                    datas[j] = datas[i];
+                    datas[i] = temp;
+                }
+            }
+        }
     }
     /**
      * 快速排序，采用分治思想。
